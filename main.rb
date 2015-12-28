@@ -7,9 +7,7 @@ set :sessions, true
 
 
 get '/' do
-
-erb :home
-
+  erb :home
 end
 
 get '/sign_in' do
@@ -27,16 +25,37 @@ post '/sign_in' do
   # password...
   	if @user.password == params[:password]
     #send them to the homepage
-    redirect '/'
+    redirect '/profile'
+    # set their the session to the current user
+    session[:user_id] = @user.id
   	else
     # otherwise, send them to the ‘login-failed' page
     # (assuming a view/route like this exists)
-    redirect "/signup"
+    redirect '/signup'
 	end 
 end	
 
 get '/signup'  do
-
-erb :signup 
-	
+  erb :signup 
 end
+
+post '/signup' do
+  #check for basic empty fields
+  if params[:username] != "" && params[:password] != "" && params[:email] != "" && params[:birthday] != ""
+    #create the new user and insert into database
+    User.create(username: params[:username], password: params[:password], email: params[:email], birthday: params[:birthday])
+  else
+    #eventually display error message here if fields are blank
+    redirect '/signup'
+  end
+  #redirect them to a temporary signup success page
+  erb :signup_success
+end
+
+
+get '/profile' do
+  session[:user_id] = @user.id
+  erb :profile
+
+end
+
