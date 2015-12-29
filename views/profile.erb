@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html>
 	<head>
-
+		<title><%= @currentUser.profile.name %>'s Profile Page</title>
 	</head>
 	<body>
-		<%= @currentUser.username %>
-		<%= @currentUser.email %>
-		<%= @currentUser.birthday %>
+		<p>Hello, <%= @currentUser.profile.name %></p>
+		<p>Here is your current account information:</p>
+		<p>Username: <%= @currentUser.username %></p>
+		<p>Email: <%= @currentUser.email %></p>
+		<p>Birthday: <%= @currentUser.birthday %></p>
+		<p>City:<%= @currentUser.profile.city %></p>
+		<p>Age:<%= @currentUser.profile.age %></p>
 	</body>
 </html>
