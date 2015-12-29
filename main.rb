@@ -3,7 +3,7 @@ require 'sinatra/activerecord'
 require './models'
 
 set :database, "sqlite3:micro_blog.sqlite3"
-set :sessions, true
+enable :sessions
 
 
 get '/' do
@@ -24,16 +24,24 @@ post '/sign_in' do
   # if the user found's password is equal to the submitted
   # password...
   	if @user.password == params[:password]
-    #send them to the homepage
-    redirect '/profile'
-    # set their the session to the current user
-    session[:user_id] = @user.id
+      session[:user_id] = @user.id
+      current_user
+    #send them to the profile page, invoke current_user function to set session
+    erb :profile
+
   	else
     # otherwise, send them to the ‘login-failed' page
     # (assuming a view/route like this exists)
     redirect '/signup'
 	end 
 end	
+
+# current user function to use if a user is signed in. Returns nil if not signed in
+def current_user
+  if session[:user_id] 
+      @currentUser = User.find(session[:user_id])
+  end   
+end
 
 get '/signup'  do
   erb :signup 
@@ -54,8 +62,13 @@ end
 
 
 get '/profile' do
-  session[:user_id] = @user.id
+  puts @currentUser
   erb :profile
-
 end
+
+get '/testSession' do
+  current_user
+  erb :testSession
+end
+
 
