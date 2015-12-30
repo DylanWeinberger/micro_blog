@@ -1,6 +1,11 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require './models'
+# require 'sinatra-flash'
+# require 'sinatra-redirect-with-flash'
+# I cannot get the app to run when these two are required
+# may not need to require these two files
+
 
 set :database, "sqlite3:micro_blog.sqlite3"
 enable :sessions
@@ -104,14 +109,88 @@ end
 get '/account_delete' do
 # This will reroute to a new page saying their account is deleted.
   destroy_user
+  log_out
   erb :account_delete
 end
 
+# get '/newpost' do
+#   erb :newpost
+# end
+
+# get '/posts' do
+#   @posts = Post.order("created_at DESC")
+#   erb :posts
+# end
+
+# post '/newpost' do
+#   if current_user
+#     current_user
+#   #check for basic empty fields
+#   if params[:title] != "" && params[:content] != ""
+#     #create the new user and insert into database
+#     @currentpost = Post.create(title: params[:title], content: params[:content])
+#     erb :posts
+#   elsif params[:title] != "" && params[:content].length > 150
+
+
+#   #   #eventually display error message here if fields are blank
+#   #   redirect '/newpost'
+#   end
+
+#   #this block grabs their newly created user ID, sets it as the session, and then reroutes them to the complete profile page
+# end
+# end
+# I'm starting the posting over using a template I found
+get "/postsindex" do
+  # This will navigate to the posts folder and find the index in there. This is the posts homepage.
+  @posts = Post.order("created_at DESC")
+  @title = "Welcome."
+  erb :"postsindex"
+end
+
+
+
+
+get "/create" do
+  # This is the route for creating new posts.
+ @title = "Create post"
+ @post = Post.new
+ erb :"create"
+end
+
+  # This route is taking the paramaters entered in the create route and redirecting them to a new place to save them as their id.
+post "/posts" do
+ @post = Post.new(params[:post])
+ if @post.save
+   redirect "posts/#{@post.id}"
+ else
+   erb :"create"
+ end
+end
+
+get "/posts/:id" do
+  # This route will allow us to navigate through the different posts
+ @post = Post.find(params[:id])
+ @title = @post.title
+ erb :"view"
+end
+
+
+
+helpers do
+  # Not sure what this does but the tutorial im following suggested it
+  def title
+    if @title
+      "#{@title}"
+    else
+      "Welcome."
+    end
+  end
+end
+
 def destroy_user
-  # This method checks to see if there is a current user session. Then it sets that session to a new variable.
-  # Then we call the destroy method on it.
-  if session[:user_id]
-    @currentUser = User.find(session[:user_id])
+  # This method will call the current user method to make sure there is a user. Then it destroys the user currently logged in.
+  if current_user
     @currentUser.destroy
   end
 end

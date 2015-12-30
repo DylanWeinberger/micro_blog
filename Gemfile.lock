@@ -1,4 +1,5 @@
 GEM
+  remote: https://rubygems.org/
   specs:
     activemodel (4.2.5)
       activesupport (= 4.2.5)
@@ -29,6 +30,10 @@ GEM
     sinatra-activerecord (2.0.9)
       activerecord (>= 3.2)
       sinatra (~> 1.0)
+    sinatra-flash (0.3.0)
+      sinatra (>= 1.0.0)
+    sinatra-redirect-with-flash (0.2.1)
+      sinatra (>= 1.0.0)
     sqlite3 (1.3.11)
     thread_safe (0.3.5)
     tilt (2.0.1)
@@ -42,6 +47,8 @@ DEPENDENCIES
   activerecord
   rake
   sinatra-activerecord
+  sinatra-flash
+  sinatra-redirect-with-flash
   sqlite3
 
 BUNDLED WITH
