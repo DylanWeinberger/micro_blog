@@ -7,8 +7,11 @@ enable :sessions
 
 
 get '/' do
-  current_user
-  erb :home
+  if current_user
+    current_user 
+    erb :home
+  end
+    erb :sign_in
 end
 
 get '/sign_in' do
@@ -86,6 +89,20 @@ get '/testSession' do
   current_user
   erb :testSession
 end
+
+get '/sign_out' do
+  log_out
+  # This route will be called when someone clicks on logout.
+  erb :sign_out
+end
+
+def log_out
+  if session[:user_id] 
+      @currentUser = User.find(session[:user_id])
+      @currentUser = nil
+  end  
+end
+
 
 
 
