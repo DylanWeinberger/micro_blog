@@ -101,6 +101,7 @@ get '/testSession' do
 end
 
 get '/sign_out' do
+  current_user
   log_out
   # This route will be called when someone clicks on logout.
   erb :sign_out
@@ -108,6 +109,7 @@ end
 
 get '/account_delete' do
 # This will reroute to a new page saying their account is deleted.
+  current_user
   destroy_user
   log_out
   erb :account_delete
@@ -143,6 +145,7 @@ end
 # I'm starting the posting over using a template I found
 get "/postsindex" do
   # This will navigate to the posts folder and find the index in there. This is the posts homepage.
+  current_user
   @posts = Post.order("created_at DESC")
   @title = "Welcome."
   erb :"postsindex"
@@ -153,6 +156,7 @@ end
 
 get "/create" do
   # This is the route for creating new posts.
+ current_user
  @title = "Create post"
  @post = Post.new
  erb :"create"
@@ -160,15 +164,17 @@ end
 
   # This route is taking the paramaters entered in the create route and redirecting them to a new place to save them as their id.
 post "/posts" do
- @post = Post.new(params[:post])
- if @post.save
-   redirect "posts/#{@post.id}"
- else
+ current_user
+ @post = Post.create(title: params[:title], content: params[:content], user_id: "{@currentUser.id}")
+   if @post.save
+    redirect "posts/#{@post.id}"
+   else
    erb :"create"
- end
+  end
 end
 
 get "/posts/:id" do
+  current_user
   # This route will allow us to navigate through the different posts
  @post = Post.find(params[:id])
  @title = @post.title
