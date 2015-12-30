@@ -88,10 +88,10 @@ get '/testSession' do
 end
 
 
-<<<<<<< HEAD
-erb :signup 
+
+# erb :signup 
 	
-end
+# end
 
 post '/signup' do
 	
@@ -108,5 +108,4 @@ def current_user
 	 @current_user = User.find(session[:user_id])
 	 end
  end
-=======
->>>>>>> 7d80e57dabcae4fbb742438a19aa747825ace251
+
