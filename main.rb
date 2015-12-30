@@ -207,5 +207,13 @@ def log_out
   end
 end
 
+post '/updateProfile' do
+  current_user
+  if params[:name] != ""
+    @currentUser.profile.save(params [:name])
+  end
+end
+
+
 
 

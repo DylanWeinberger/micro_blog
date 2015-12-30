@@ -22,6 +22,19 @@
 		<% end %>
 		<br>
 		<p>Edit Profile:</p>
+
+		<form method="POST" action="/updateProfile">
+			<label for="name">First Name:</label>
+			<input type="text" name="name">
+			<label for="age">Age:</label>
+			<input type="number" name="age">
+			<label for="lname">Last Name:</label>
+			<input type="text" name="lname">
+			<label for="city">City</label>
+			<input type="text" name="city">
+			<input type="submit">
+		</form>
+
 		<h2><a href="/account_delete">Delete Your Account?</a></h2>
 	</body>
 </html>
