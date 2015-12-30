@@ -28,7 +28,7 @@ post '/sign_in' do
       session[:user_id] = @user.id
       current_user
     #send them to the profile page, invoke current_user function to set session
-    erb :completeProfile
+    erb :profilePage
 
   	else
     # otherwise, send them to the ‘login-failed' page
@@ -75,7 +75,7 @@ post '/completeProfile' do
     current_user
     #create a new profile, and use the current session id since they are already signed in as the foriegn key with that profile.
     Profile.create(name: params[:name], city: params[:city], age: params[:age], user_id: "#{@currentUser.id}", lname: params[:lname])
-  erb :home
+  erb :profilePage
   else
     #display error message here eventually
     redirect '/completeProfile'
