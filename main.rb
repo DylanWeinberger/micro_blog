@@ -103,7 +103,7 @@ end
 
 def log_out
   if current_user 
-      @currentUser = nil
+      session[:user_id] = nil
   end
 end
 
