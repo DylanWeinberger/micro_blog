@@ -1,13 +1,15 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require './models'
-# require 'sinatra-flash'
-# require 'sinatra-redirect-with-flash'
+
 # I cannot get the app to run when these two are required
 # may not need to require these two files
 
-
+set :sessions, true
 set :database, "sqlite3:micro_blog.sqlite3"
+
+require 'sinatra/flash'
+require 'sinatra/redirect_with_flash'
 enable :sessions
 
 
@@ -165,13 +167,20 @@ end
   # This route is taking the paramaters entered in the create route and redirecting them to a new place to save them as their id.
 post "/create" do
  current_user
- @post = Post.create(title: params[:title], content: params[:content], user_id: "#{@currentUser.id}")
-   if @post.save
-    redirect "/postsindex"
-   else
-   erb :"create"
-  end
+ @post = Post.new(title: params[:title], content: params[:content], user_id: "#{@currentUser.id}")
+   # if @post.save
+  if @post.content.length < 151 && @post.title != ""
+    @post.save
+    redirect "posts/#{@post.id}", :notice => 'Congrats! Love the new post.'
+    # redirect "/postsindex"
+  elsif @post.content.length > 150
+    redirect "/create", :error => 'Your post was too long. Maximum 150 Characters'
+  elsif @post.title == ""
+    redirect "/create", :error => 'Your post needs a title. Try again.'
+
+ end
 end
+
 
 get "/posts/:id" do
   current_user
@@ -179,6 +188,14 @@ get "/posts/:id" do
  @post = Post.find(params[:id])
  @title = @post.title
  erb :"view"
+end
+
+get "/postsfeed" do
+  # This will navigate to the posts folder and find the index in there. This is the posts homepage.
+  current_user
+  @posts = Post.all.order("created_at DESC").take(10)
+  @title = "Welcome."
+  erb :"postsfeed"
 end
 
 
