@@ -1,4 +1,4 @@
-
+source 'https://rubygems.org'
 # in your Gemfile
 gem 'activerecord'
 # the actual ActiveRecord library
@@ -11,3 +11,5 @@ gem 'sqlite3'
 gem 'rake'
 # a command line task runner (more on this
 # later)
+gem 'sinatra-flash'
+gem 'sinatra-redirect-with-flash'
