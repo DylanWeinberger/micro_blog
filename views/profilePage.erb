@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title><%= @currentUser.profile.name %> Profile</title>
+		<title>Profile</title>
 	</head>
 	<body>
-		<h1>Welcome to BB8...6!</h1>
-		<h3>The World's Finest Micro-blog for Bikes</h3>
+		<!-- check if the user is logged in, if not, display the message below else -->
+		<% if session[:user_id] != nil %>
 		<p>Hello <%= @currentUser.profile.name %>, how's your day going?</p>
 		<p>Here is your current account information:</p>
 		<p>Username: <%= @currentUser.username %></p>
@@ -17,8 +17,11 @@
 		<p>City: <%= @currentUser.profile.city %></p>
 		<p>auto increment id from profile: <%= @currentUser.profile.id %></p>
 		<p>user_id in profile: <%= @currentUser.profile.user_id %></p>
+		<% else %>
+		<p><%="No profile has been created for this user" %></p>
+		<% end %>
 		<br>
 		<p>Edit Profile:</p>
-		<h2><a href="/account_delete">Delete Your Account?</a></h2>
+
 	</body>
 </html>
