@@ -101,12 +101,26 @@ get '/sign_out' do
   erb :sign_out
 end
 
+get '/account_delete' do
+# This will reroute to a new page saying their account is deleted.
+  destroy_user
+  erb :account_delete
+end
+
+def destroy_user
+  # This method checks to see if there is a current user session. Then it sets that session to a new variable.
+  # Then we call the destroy method on it.
+  if session[:user_id]
+    @currentUser = User.find(session[:user_id])
+    @currentUser.destroy
+  end
+end
+
 def log_out
   if current_user 
       session[:user_id] = nil
   end
 end
-
 
 
 
