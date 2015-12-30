@@ -163,11 +163,11 @@ get "/create" do
 end
 
   # This route is taking the paramaters entered in the create route and redirecting them to a new place to save them as their id.
-post "/posts" do
+post "/create" do
  current_user
- @post = Post.create(title: params[:title], content: params[:content], user_id: "{@currentUser.id}")
+ @post = Post.create(title: params[:title], content: params[:content], user_id: "#{@currentUser.id}")
    if @post.save
-    redirect "posts/#{@post.id}"
+    redirect "/postsindex"
    else
    erb :"create"
   end
