@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Complete Profile</title>
+	</head>
+	<body>
+		<p>Here is your current account information:</p>
+		<p>Username: <%= @currentUser.username %></p>
+		<p>User ID: <%= @currentUser.id %></p>
+		<p>Email: <%= @currentUser.email %></p>
+		<p>Birthday: <%= @currentUser.birthday %></p>
+		<h2>Now please complete your profile:</h2>
+		<form method="POST" action="/completeProfile">
+			<label for="name">First Name:</label>
+			<input type="text" name="name">
+			<label for="age">Age:</label>
+			<input type="number" name="age">
+			<label for="lname">Last Name:</label>
+			<input type="text" name="lname">
+			<label for="city">City</label>
+			<input type="text" name="city">
+			<input type="submit">
+		</form>
+	</body>
+</html>
