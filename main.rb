@@ -7,6 +7,7 @@ enable :sessions
 
 
 get '/' do
+  current_user
   erb :home
 end
 
@@ -27,7 +28,7 @@ post '/sign_in' do
       session[:user_id] = @user.id
       current_user
     #send them to the profile page, invoke current_user function to set session
-    erb :profile
+    erb :completeProfile
 
   	else
     # otherwise, send them to the ‘login-failed' page
@@ -56,14 +57,28 @@ post '/signup' do
     #eventually display error message here if fields are blank
     redirect '/signup'
   end
-  #redirect them to a temporary signup success page
-  erb :signup_success
+  #this block grabs their newly created user ID, sets it as the session, and then reroutes them to the complete profile page
+  @user = User.where(username: params[:username]).first
+  session[:user_id] = @user.id
+  current_user
+  erb :completeProfile
 end
 
 
-get '/profile' do
-  puts @currentUser
-  erb :profile
+get '/completeProfile' do
+  erb :completeProfile
+end
+
+post '/completeProfile' do
+  if params[:name] != "" && params[:city] != "" && params[:age] != "" && params[:lname] != ""
+    current_user
+    #create a new profile, and use the current session id since they are already signed in as the foriegn key with that profile.
+    Profile.create(name: params[:name], city: params[:city], age: params[:age], user_id: "#{@currentUser.id}", lname: params[:lname])
+  erb :home
+  else
+    #display error message here eventually
+    redirect '/completeProfile'
+  end
 end
 
 get '/testSession' do

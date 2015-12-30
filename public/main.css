@@ -16,3 +16,18 @@ nav ul li {
 nav ul li a {
 	text-decoration: none;
 }
+
+p {
+	margin-left: 100px;
+	margin-top: 50px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-align: center;
+	margin: 20px;
+}
+
+form {
+	margin: 50px;
+	padding: 20px;
+}

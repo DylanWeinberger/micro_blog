@@ -6,6 +6,17 @@
 	<body>
 		<h1>Welcome to BB8...6!</h1>
 		<h3>The World's Finest Micro-blog for Bikes</h3>
+		<p>Hello <%= @currentUser.profile.name %>, how's your day going?</p>
+		<p>Here is your current account information:</p>
+		<p>Username: <%= @currentUser.username %></p>
+		<p>User ID: <%= @currentUser.id %></p>
+		<p>Email: <%= @currentUser.email %></p>
+		<p>First Name: <%= @currentUser.profile.name %></p>
+		<p>Age: <%= @currentUser.profile.age %></p>
+		<p>Last Name: <%= @currentUser.profile.lname %></p>
+		<p>City: <%= @currentUser.profile.city %></p>
+		<p>auto increment id from profile: <%= @currentUser.profile.id %></p>
+		<p>user_id in profile: <%= @currentUser.profile.user_id %></p>
 	</body>
 </html>
 
