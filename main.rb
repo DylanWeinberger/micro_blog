@@ -85,6 +85,11 @@ post '/completeProfile' do
   end
 end
 
+get '/profilePage' do
+  current_user
+  erb :profilePage
+end
+
 get '/testSession' do
   current_user
   erb :testSession
@@ -97,10 +102,9 @@ get '/sign_out' do
 end
 
 def log_out
-  if session[:user_id] 
-      @currentUser = User.find(session[:user_id])
+  if current_user 
       @currentUser = nil
-  end  
+  end
 end
 
 
