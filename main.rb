@@ -35,6 +35,7 @@ post '/sign_in' do
     # (assuming a view/route like this exists)
     redirect '/signup'
 	end 
+
 end	
 
 # current user function to use if a user is signed in. Returns nil if not signed in
@@ -86,4 +87,25 @@ get '/testSession' do
   erb :testSession
 end
 
+
+
+# erb :signup 
+	
+# end
+
+post '/signup' do
+	
+	@user = User.new(params)
+	redirect '/'
+
+
+end
+
+
+
+def current_user
+	 if session[:user_id]
+	 @current_user = User.find(session[:user_id])
+	 end
+ end
 
