@@ -1,15 +1,9 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require './models'
-# require 'sinatra-flash'
-# require 'sinatra-redirect-with-flash'
-# I cannot get the app to run when these two are required
-# may not need to require these two files
-
 
 set :database, "sqlite3:micro_blog.sqlite3"
 enable :sessions
-
 
 get '/' do
   if current_user
@@ -25,10 +19,7 @@ end
 
 post '/sign_in' do
   # assign the variable @user to the user that has the
-  # same username given inside of the params hash
-  # use .first because .where always returns an array,
-  # even if there is one result returned and we only
-  # want one user
+  # same username given inside of the params hash use .first because .where always returns an array,
   @user = User.where(username: params[:username]).first
   # if the user found's password is equal to the submitted
   # password...
@@ -40,7 +31,6 @@ post '/sign_in' do
 
   	else
     # otherwise, send them to the ‘login-failed' page
-    # (assuming a view/route like this exists)
     redirect '/signup'
 	end 
 
@@ -95,9 +85,11 @@ get '/profilePage' do
   erb :profilePage
 end
 
-get '/testSession' do
+# a page where users can follow other users
+get '/followUsers' do
   current_user
-  erb :testSession
+  @printAllUsers = User.all
+  erb :followUsers
 end
 
 get '/sign_out' do
@@ -115,33 +107,6 @@ get '/account_delete' do
   erb :account_delete
 end
 
-# get '/newpost' do
-#   erb :newpost
-# end
-
-# get '/posts' do
-#   @posts = Post.order("created_at DESC")
-#   erb :posts
-# end
-
-# post '/newpost' do
-#   if current_user
-#     current_user
-#   #check for basic empty fields
-#   if params[:title] != "" && params[:content] != ""
-#     #create the new user and insert into database
-#     @currentpost = Post.create(title: params[:title], content: params[:content])
-#     erb :posts
-#   elsif params[:title] != "" && params[:content].length > 150
-
-
-#   #   #eventually display error message here if fields are blank
-#   #   redirect '/newpost'
-#   end
-
-#   #this block grabs their newly created user ID, sets it as the session, and then reroutes them to the complete profile page
-# end
-# end
 # I'm starting the posting over using a template I found
 get "/postsindex" do
   # This will navigate to the posts folder and find the index in there. This is the posts homepage.
@@ -150,9 +115,6 @@ get "/postsindex" do
   @title = "Welcome."
   erb :"postsindex"
 end
-
-
-
 
 get "/create" do
   # This is the route for creating new posts.
@@ -181,18 +143,16 @@ get "/posts/:id" do
  erb :"view"
 end
 
-
-
-helpers do
-  # Not sure what this does but the tutorial im following suggested it
-  def title
-    if @title
-      "#{@title}"
-    else
-      "Welcome."
-    end
-  end
-end
+# helpers do
+#   # Not sure what this does but the tutorial im following suggested it
+#   def title
+#     if @title
+#       "#{@title}"
+#     else
+#       "Welcome."
+#     end
+#   end
+# end
 
 def destroy_user
   # This method will call the current user method to make sure there is a user. Then it destroys the user currently logged in.
@@ -214,6 +174,36 @@ post '/updateProfile' do
   end
 end
 
+get '/followUsers' do
+  current_user
+  erb :followUsers
+end
+
+#this is the action for when a user clicks the button to follow another user
+post '/follow' do
+  follow_user
+  current_user
+  erb :followUsers
+end
+
+#this line of code works for pushing a user into a follower in IRB
+#User.find(#user that you want to follow).followers.push(User.find(your user id (logged in user))
+
+def follow_user
+  #check if logged in, second part is attempting to check if user is already followed
+  if current_user # && User.find(params[:followID]).followers.find(@currentUser.id) == nil
+    current_user
+    #Take the id from params, find that user, and add current user to their followers
+    User.find(params[:followID]).followers.push(User.find(@currentUser.id))
+  #else
+    #print a "need to be logged in to follow someone" or something
+  end
+end
+
+
+
+  #take user_id of "follow button" clicked, push the user they want to follow into the users they want to follow follower's
+  
 
 
 
