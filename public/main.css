@@ -3,6 +3,10 @@
 	padding: 0;
 }
 
+body {
+	background-color: #FFFFFF;
+}
+
 nav {
 	position: fixed;
 	top: 10%;
@@ -30,4 +34,71 @@ h1, h2, h3, h4, h5, h6 {
 form {
 	margin: 50px;
 	padding: 20px;
+}
+
+.banner {
+	position: relative;
+	width: 100%;
+	top: 0px;
+	left: 0px;
+}
+
+.feedtitle {
+	text-align: center;
+	text-decoration: none;
+	color: #7F4400;
+	font-size: 40px;
+	font-family: Michroma;
+	transition: 1s;
+}
+
+.feedtitle:hover{
+	text-decoration: underline;
+	color: #C76F00;
+}
+
+.feedpostcontainer {
+	margin-top: 20px;
+	background-color: rgba(128, 126, 135, .7);
+	width: 50%;
+	position: relative;
+	left: 20%;
+	border-style: dashed;
+	border-width: 10px;
+	border-radius: 28px;
+	border-color: #C76F00;
+
+}
+
+.feedlist {
+	list-style-type: none;
+}
+
+.feedtimestamp {
+	font-family: Michroma;
+	text-align: left;
+	font-size: 10px;
+	/*position: relative;
+	top: -40px;*/
+	margin-top: 0px;
+	line-height: 1px;
+
+}
+
+.feedauthor {
+	font-family: Michroma;
+	text-align: left;
+	font-size: 10px;
+	/*position: relative;
+	top: -60px;*/
+	margin-top: 10px;
+	line-height: 1px;
+
+}
+
+.feedcontent {
+	text-align: left;
+	font-family: Michroma; 
+	color: #7F4400;
+	margin-bottom: 10px;
 }
