@@ -45,6 +45,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  activesupport (~> 4.2, >= 4.2.5)
   rake
   sinatra-activerecord
   sinatra-flash
