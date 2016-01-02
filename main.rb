@@ -1,15 +1,11 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require './models'
-
-# I cannot get the app to run when these two are required
-# may not need to require these two files
-
-set :sessions, true
-set :database, "sqlite3:micro_blog.sqlite3"
-
 require 'sinatra/flash'
 require 'sinatra/redirect_with_flash'
+
+set :database, "sqlite3:micro_blog.sqlite3"
+
 enable :sessions
 
 get '/' do
@@ -26,10 +22,9 @@ end
 
 post '/sign_in' do
   # assign the variable @user to the user that has the
-  # same username given inside of the params hash use .first because .where always returns an array,
+  # same username given inside of the params hash use .first because .where always returns an array
   @user = User.where(username: params[:username]).first
-  # if the user found's password is equal to the submitted
-  # password...
+  # check if user's password is equal to submitted password
   	if @user.password == params[:password]
       session[:user_id] = @user.id
       current_user
@@ -82,8 +77,8 @@ post '/completeProfile' do
     Profile.create(name: params[:name], city: params[:city], age: params[:age], user_id: "#{@currentUser.id}", lname: params[:lname])
   erb :profilePage
   else
-    #display error message here eventually
-    redirect '/completeProfile'
+    #display error message if not all fields are filled.
+    redirect "/completeProfile", :error => 'All profile fields are required!'
   end
 end
 
@@ -132,9 +127,8 @@ end
 
   # This route is taking the paramaters entered in the create route and redirecting them to a new place to save them as their id.
 post "/create" do
- current_user
+ if current_user
  @post = Post.new(title: params[:title], content: params[:content], user_id: "#{@currentUser.id}")
-   # if @post.save
   if @post.content.length < 151 && @post.title != ""
     @post.save
     redirect "/#{@post.id}", :notice => 'Congrats! Love the new post.'
@@ -143,7 +137,9 @@ post "/create" do
     redirect "/create", :error => 'Your post was too long. Maximum 150 Characters'
   elsif @post.title == ""
     redirect "/create", :error => 'Your post needs a title. Try again.'
-
+  end
+  else
+    redirect "/create", :error => 'You need to be logged in to make a post'
  end
 end
 
@@ -188,7 +184,7 @@ get '/followUsers' do
   erb :followUsers
 end
 
-#this is the action for when a user clicks the button to follow another user
+#this is the routing for when a user clicks the button to follow another user
 post '/follow' do
   follow_user
   current_user
