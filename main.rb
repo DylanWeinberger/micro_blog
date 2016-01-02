@@ -3,6 +3,7 @@ require 'sinatra/activerecord'
 require './models'
 require 'sinatra/flash'
 require 'sinatra/redirect_with_flash'
+require 'active_support/all'
 
 set :database, "sqlite3:micro_blog.sqlite3"
 
@@ -153,10 +154,27 @@ end
 
 post '/updateProfile' do
   current_user
-  if params[:name] != ""
-    @currentUser.profile.save(params [:name])
+  params.each do |type, value|
+    if value == ""
+      params.except!(type)
+      puts params
+    else
+    @currentUser.profile.update({type => value})
+    end
   end
+  redirect '/profilePage', :notice => 'Profile was updated successfully.'
 end
+
+# holding onto this in case my function doesn't work
+# if params[:name] != ""
+  #   @currentUser.profile.save(params [:name])
+  # elsif params[:age] != ""
+  #   @currentUser.profile.save(params [:age])
+  # elsif params[:lname] != ""
+  #   @currentUser.profile.save(params [:lname])
+  # elsif params[:city] != ""
+  #   @currentUser.profile.save(params [:city])
+  # end
 
 get '/followUsers' do
   current_user
