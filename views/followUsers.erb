@@ -4,11 +4,11 @@
 		<title>Follow People</title>
 	</head>
 	<body>
-		<h2>Here, you can follow other users to see their posts as well!</h2>
-		<p>List of Users</p>
+		<h2 class="follow_users_title">Here, you can follow other users to see their posts as well!</h2>
+		<p class="follow_users_p">List of Users</p>
 		<% @printAllUsers.each do |printAllUsers| %>
 		<p>
-			<form action="/follow" method="POST">
+			<form class="follow_users_form" action="/follow" method="POST">
 				<button name="followID" value="<%= printAllUsers.id %>" type="submit">Follow <%= printAllUsers.username %> id:<%= printAllUsers.id %> </button>
 			</form>
 		</p>

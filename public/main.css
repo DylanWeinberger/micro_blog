@@ -4,12 +4,12 @@
 }
 
 body {
-	background-color: #FFFFFF;
+	background-color: rgba(163, 96, 22, .6);
 }
 
 nav {
 	position: fixed;
-	top: 10%;
+	top: 35%;
 }
 
 nav ul li {
@@ -59,10 +59,10 @@ form {
 
 .feedpostcontainer {
 	margin-top: 20px;
-	background-color: rgba(128, 126, 135, .7);
+	background-color: rgba(98, 97, 105, .7);
 	width: 50%;
 	position: relative;
-	left: 20%;
+	left: 25%;
 	border-style: dashed;
 	border-width: 10px;
 	border-radius: 28px;
@@ -105,9 +105,10 @@ form {
 
 .postnav {
 	position: relative;
-	left: 250px;
+	left: 25%;
 	list-style: none;
 	padding: 10px;
+	width: 120px;
 	/*margin: 10px;*/
 }
 
@@ -119,7 +120,7 @@ form {
 	text-decoration: none;
 	font-family: Michroma; 
 	color: #7F4400;
-	background-color: rgba(128, 126, 135, .7);
+	background-color: rgba(98, 97, 105, .7);
 	transition: 1s;
 }
 
@@ -132,10 +133,10 @@ form {
 
 .titleForm {
 	/*margin-top: 20px;*/
-	background-color: rgba(128, 126, 135, .7);
+	background-color: rgba(98, 97, 105, .7);
 	width: 50%;
 	position: relative;
-	left: 20%;
+	left: 25%;
 	border-style: dashed;
 	border-width: 10px;
 	border-radius: 28px;
@@ -158,10 +159,10 @@ form {
 
 .contentForm {
 	margin-top: 20px;
-	background-color: rgba(128, 126, 135, .7);
+	background-color: rgba(98, 97, 105, .7);
 	width: 50%;
 	position: relative;
-	left: 20%;
+	left: 25%;
 	border-style: dashed;
 	border-width: 10px;
 	border-radius: 28px;
@@ -188,12 +189,12 @@ form {
 	width: 200px;
 	height:50px;
 	position: relative;
-	left: 36%;
+	left: 25%;
 	margin-top: 20px;
 	font-size: 30px;
 	font-family: Michroma;
 	color: #7F4400;
-	background-color:rgba(128, 126, 135, .7);
+	background-color: rgba(98, 97, 105, .7);
 	border-style: dashed;
 	border-radius: 20px;
 	border-color: #C76F00;
@@ -209,13 +210,13 @@ form {
 .newposth1 {
 	font-family: Michroma;
 	color: #7F4400;
-	background-color:rgba(128, 126, 135, .7);
-	width: 50%;
+	background-color: rgba(98, 97, 105, .7);
+	width: 40%;
 	border-style: dashed;
 	border-width: 10px;
 	border-radius: 28px;
 	border-color: #C76F00;
-	left: 20%;
+	left: 25%;
 	position: relative;
 }
 
@@ -236,3 +237,148 @@ form {
 	padding: 20px;
 	text-align: center;
 }
+
+.sign_in {
+	position: relative;
+	left: 20%;
+	width: 25%;
+	border-width: 5px;
+	border-style: dashed;
+	border-color: #C76F00;
+	background-color: rgba(98, 97, 105, .7); 
+	font-family: Michroma;
+	font-size: 20px;
+	border-radius: 28px;
+}
+
+.sign_inButton {
+	width: 200px;
+	/*height:50px;*/
+	position: relative;
+	left: 0px;
+	margin-top: 10px;
+	font-size: 30px;
+	font-family: Michroma;
+	color: #7F4400;
+	background-color:rgba(98, 97, 105, .7);
+	border-style: dashed;
+	border-radius: 20px;
+	border-color: #C76F00;
+	transition: 1s;	
+}
+
+.sign_inButton:hover{
+	color: #9E9DA2;
+	background-color:  #7F4400;
+}
+
+.profile_container {
+	margin-top: 20px;
+	background-color: rgba(98, 97, 105, .7);
+	width: 50%;
+	position: relative;
+	left: 25%;
+	border-style: dashed;
+	border-width: 10px;
+	border-radius: 28px;
+	border-color: #C76F00;
+}
+
+.profile_container p {
+	font-family: Michroma;
+	color: #7F4400;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+.edit_profile {
+	font-family: Michroma;
+	color: #7F4400;
+	margin-bottom: 10px;
+	font-weight: bold;
+	font-size: 28px;
+	position: relative;
+	left: 18%;
+}
+
+.edit_profile_container {
+	margin-top: 20px;
+	background-color: rgba(98, 97, 105, .7);
+	width: 50%;
+	position: relative;
+	left: 25%;
+	border-style: dashed;
+	border-width: 10px;
+	border-radius: 28px;
+	border-color: #C76F00;
+}
+
+.edit_profile_container label {
+	font-family: Michroma;
+	color: #7F4400;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+.edit_profile_container input {
+	position: absolute;
+	left: 40%;
+}
+
+.edit_profile_button {
+	width: 200px;
+	/*height:50px;*/
+	position: relative;
+	left: 0px;
+	margin-top: 10px;
+	font-size: 30px;
+	font-family: Michroma;
+	color: #7F4400;
+	background-color:rgba(98, 97, 105, .7);
+	border-style: dashed;
+	border-radius: 20px;
+	border-color: #C76F00;
+	transition: 1s;	
+}
+
+.edit_profile_button:hover{
+	color: #9E9DA2;
+	background-color:  #7F4400;
+}
+
+.follow_users_title {
+	font-family: Michroma;
+}
+
+.follow_users_p {
+	font-family: Michroma;
+	position: relative;
+	left: 30%;
+}
+.follow_users_form {
+	position: relative;
+	left: 32%;
+
+
+}
+
+.follow_users_form button {
+	width: auto;
+	font-family: Michroma;
+	font-size: 20px;
+	font-family: Michroma;
+	color: #7F4400;
+	background-color:rgba(98, 97, 105, .7);
+	border-style: dashed;
+	border-radius: 20px;
+	border-color: #C76F00;
+	transition: 1s;	
+}
+
+.follow_users_form button:hover{
+	color: #9E9DA2;
+	background-color:  #7F4400;
+	cursor: url("https://cdn2.iconfinder.com/data/icons/starwars/icons/128/Obi%20Wans%20%20light-saber.png"), auto;
+
+}
+
