@@ -151,14 +151,16 @@ get "/userfeed" do
   # this route will display all the current users posts.
   # I will find the posts.where user_id == @currentUser.id
 
-    @posts = Post.all.where(:user_id == "#{@currentUser.id}")
+  if current_user
+    @posts = Post.all.find(:user_id == @currentUser.id)
     erb :"postsindex"
   end
+end
 
 get "/:id" do
   current_user
   # This route will allow us to navigate through the different posts
- @posts = Post.find(params[:id])
+ @post = Post.find(params[:id])
  @title = @post.title
  erb :"view"
 end

@@ -6,34 +6,37 @@
 	<body>
 		<!-- check if the user is logged in, if not, display the message below else -->
 		<% if session[:user_id] != nil %>
-		<p>Hello <%= @currentUser.profile.name %>, how's your day going?</p>
-		<p>Here is your current account information:</p>
-		<p>Username: <%= @currentUser.username %></p>
-		<p>User ID: <%= @currentUser.id %></p>
-		<p>Email: <%= @currentUser.email %></p>
-		<p>First Name: <%= @currentUser.profile.name %></p>
-		<p>Age: <%= @currentUser.profile.age %></p>
-		<p>Last Name: <%= @currentUser.profile.lname %></p>
-		<p>City: <%= @currentUser.profile.city %></p>
-		<p>auto increment id from profile: <%= @currentUser.profile.id %></p>
-		<p>user_id in profile: <%= @currentUser.profile.user_id %></p>
+			<div class="profile_container">
+				<p>Hello <%= @currentUser.profile.name %>, how's your day going?</p>
+				<p>Here is your current account information:</p>
+				<p>Username: <%= @currentUser.username %></p>
+				<p>User ID: <%= @currentUser.id %></p>
+				<p>Email: <%= @currentUser.email %></p>
+				<p>First Name: <%= @currentUser.profile.name %></p>
+				<p>Age: <%= @currentUser.profile.age %></p>
+				<p>Last Name: <%= @currentUser.profile.lname %></p>
+				<p>City: <%= @currentUser.profile.city %></p>
+				<p>auto increment id from profile: <%= @currentUser.profile.id %></p>
+				<p>user_id in profile: <%= @currentUser.profile.user_id %></p>
+			</div>
 		<% else %>
-		<p><%="No profile has been created for this user" %></p>
+			<p><%="No profile has been created for this user" %></p>
 		<% end %>
 		<br>
-		<p>Edit Profile:</p>
-
-		<form method="POST" action="/updateProfile">
-			<label for="name">First Name:</label>
-			<input type="text" name="name">
-			<label for="age">Age:</label>
-			<input type="number" name="age">
-			<label for="lname">Last Name:</label>
-			<input type="text" name="lname">
-			<label for="city">City</label>
-			<input type="text" name="city">
-			<input type="submit">
-		</form>
+		<p class="edit_profile">Edit Profile:</p>
+		<div class="edit_profile_container">
+			<form method="POST" action="/updateProfile">
+				<label for="name">First Name:</label>
+				<input type="text" name="name"><br>
+				<label for="age">Age:</label>
+				<input type="number" name="age"><br>
+				<label for="lname">Last Name:</label>
+				<input type="text" name="lname"><br>
+				<label for="city">City</label>
+				<input type="text" name="city"><br>
+				<input class="edit_profile_button" type="submit">
+			</form>
+		</div>
 
 		<h2><a href="/account_delete">Delete Your Account?</a></h2>
 	</body>
