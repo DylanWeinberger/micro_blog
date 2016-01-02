@@ -35,15 +35,7 @@ post '/sign_in' do
     # otherwise, send them to the ‘login-failed' page
     redirect '/signup'
 	end 
-
 end	
-
-# current user function to use if a user is signed in. Returns nil if not signed in
-def current_user
-  if session[:user_id] 
-      @currentUser = User.find(session[:user_id])
-  end   
-end
 
 get '/signup'  do
   erb :signup 
@@ -159,19 +151,6 @@ get "/:id" do
  erb :"view"
 end
 
-def destroy_user
-  # This method will call the current user method to make sure there is a user. Then it destroys the user currently logged in.
-  if current_user
-    @currentUser.destroy
-  end
-end
-
-def log_out
-  if current_user 
-      session[:user_id] = nil
-  end
-end
-
 post '/updateProfile' do
   current_user
   if params[:name] != ""
@@ -189,6 +168,26 @@ post '/follow' do
   follow_user
   current_user
   erb :followUsers
+end
+
+def destroy_user
+  # This method will call the current user method to make sure there is a user. Then it destroys the user currently logged in.
+  if current_user
+    @currentUser.destroy
+  end
+end
+
+def log_out
+  if current_user 
+      session[:user_id] = nil
+  end
+end
+
+# current user function to use if a user is signed in. Returns nil if not signed in
+def current_user
+  if session[:user_id] 
+      @currentUser = User.find(session[:user_id])
+  end   
 end
 
 def follow_user
