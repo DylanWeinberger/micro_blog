@@ -132,7 +132,7 @@ form {
 }
 
 .titleForm {
-	/*margin-top: 20px;*/
+	margin-top: -30px;
 	background-color: rgba(98, 97, 105, .7);
 	width: 50%;
 	position: relative;
@@ -214,10 +214,11 @@ form {
 	width: 40%;
 	border-style: dashed;
 	border-width: 10px;
-	border-radius: 28px;
+	border-radius: 20px;
 	border-color: #C76F00;
-	left: 25%;
+	left: 28%;
 	position: relative;
+
 }
 
 .alert-success {
