@@ -208,9 +208,6 @@ post '/follow' do
   erb :followUsers
 end
 
-#this line of code works for pushing a user into a follower in IRB
-#User.find(#user that you want to follow).followers.push(User.find(your user id (logged in user))
-
 def follow_user
   #check if logged in, second part is attempting to check if user is already followed
   if current_user # && User.find(params[:followID]).followers.find(@currentUser.id) == nil
@@ -222,9 +219,15 @@ def follow_user
   end
 end
 
+#this will be a function to unfollow a user
 
+# def unfollow_user
+#   if current_user
+#     User.find(params[:followID]).followers.#code to remove(User.find(@currentUser.id))
+#   end
+# end
 
-  #take user_id of "follow button" clicked, push the user they want to follow into the users they want to follow follower's
+      
   
 
 
