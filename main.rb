@@ -155,13 +155,27 @@ get "/postsfeed" do
   erb :"postsfeed"
 end
 
+# get "/userfeed" do
+#   # this route will display all the current users posts.
+#   # I will find the posts.where user_id == @currentUser.id
+#   if current_user
+#     @post = Post.where(:user_id == @currentUser.id)
+#     erb :"postsindex"
+#   else
+#     redirect "/postsindex"
+#   end
+# end
+
 get "/:id" do
   current_user
   # This route will allow us to navigate through the different posts
- @post = Post.find(params[:id])
+ @posts = Post.find(params[:id])
  @title = @post.title
  erb :"view"
 end
+
+
+
 
 def destroy_user
   # This method will call the current user method to make sure there is a user. Then it destroys the user currently logged in.
