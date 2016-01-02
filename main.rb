@@ -140,19 +140,20 @@ get "/postsfeed" do
   current_user
   @posts = Post.all.order("created_at DESC").take(10)
   @title = "Welcome."
+  # @author_id = @posts.user_id
+  # @author = User.find("#{@author_id}")
+
   erb :"postsfeed"
 end
 
-# get "/userfeed" do
-#   # this route will display all the current users posts.
-#   # I will find the posts.where user_id == @currentUser.id
-#   if current_user
-#     @post = Post.where(:user_id == @currentUser.id)
-#     erb :"postsindex"
-#   else
-#     redirect "/postsindex"
-#   end
-# end
+get "/userfeed" do
+  current_user
+  # this route will display all the current users posts.
+  # I will find the posts.where user_id == @currentUser.id
+
+    @posts = Post.all.where(:user_id == "#{@currentUser.id}")
+    erb :"postsindex"
+  end
 
 get "/:id" do
   current_user
