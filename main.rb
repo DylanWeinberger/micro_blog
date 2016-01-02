@@ -114,7 +114,6 @@ get '/account_delete' do
   erb :account_delete
 end
 
-# I'm starting the posting over using a template I found
 get "/postsindex" do
   # This will navigate to the posts folder and find the index in there. This is the posts homepage.
   current_user
@@ -138,7 +137,7 @@ post "/create" do
    # if @post.save
   if @post.content.length < 151 && @post.title != ""
     @post.save
-    redirect "posts/#{@post.id}", :notice => 'Congrats! Love the new post.'
+    redirect "/#{@post.id}", :notice => 'Congrats! Love the new post.'
     # redirect "/postsindex"
   elsif @post.content.length > 150
     redirect "/create", :error => 'Your post was too long. Maximum 150 Characters'
@@ -148,32 +147,20 @@ post "/create" do
  end
 end
 
-
-get "/posts/:id" do
-  current_user
-  # This route will allow us to navigate through the different posts
- @post = Post.find(params[:id])
- @title = @post.title
- erb :"view"
-end
-
-# helpers do
-#   # Not sure what this does but the tutorial im following suggested it
-#   def title
-#     if @title
-#       "#{@title}"
-#     else
-#       "Welcome."
-#     end
-#   end
-# end
-
 get "/postsfeed" do
   # This will navigate to the posts folder and find the index in there. This is the posts homepage.
   current_user
   @posts = Post.all.order("created_at DESC").take(10)
   @title = "Welcome."
   erb :"postsfeed"
+end
+
+get "/:id" do
+  current_user
+  # This route will allow us to navigate through the different posts
+ @post = Post.find(params[:id])
+ @title = @post.title
+ erb :"view"
 end
 
 def destroy_user
