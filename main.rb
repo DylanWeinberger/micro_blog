@@ -139,7 +139,7 @@ end
 get "/postsfeed" do
   # This will navigate to the posts folder and find the index in there. This is the posts homepage.
   current_user
-  @posts = Post.all.order("created_at DESC").take(10)
+  @posts = Post.order(created_at: :desc).take(10)
   @title = "Welcome."
   # @author_id = @posts.user_id
   # @author = User.find("#{@author_id}")
