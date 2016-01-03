@@ -7,19 +7,56 @@ body {
 	background-color: rgba(163, 96, 22, .6);
 }
 
+#toggleButton {
+    float: left;
+    position: fixed;
+    width: 200px;
+	font-size: 30px;
+	font-family: Michroma;
+	color: #7F4400;
+	background-color:rgba(98, 97, 105, .7);
+	border-style: dashed;
+	border-radius: 6px;
+	border-color: #C76F00;
+	/*transition: 1s;	*/
+}
+
+#toggleButton:hover{
+	color: #9E9DA2;
+	background-color:  #7F4400;
+	cursor: pointer;
+}
+
 nav {
+
 	position: fixed;
-	top: 35%;
+	top: 40%;
+	background-color: rgba(98, 97, 105, .7);
+    width: 200px;
+    border-radius: 6px;
+    left: -250px;
+    border-style: dashed;
+    border-color: #C76F00;
 }
 
 nav ul li {
 	list-style-type: none;
 	font-size: 1em;
+	padding: 10px;
+
 }
 
 nav ul li a {
 	text-decoration: none;
+	font-family: Michroma;
+	color: #7F4400;
+	transition: .5s;
 }
+
+nav ul li a:hover {
+	color: #C76F00;
+	text-decoration: underline;
+} 
 
 p {
 	margin-left: 100px;

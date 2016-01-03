@@ -212,10 +212,9 @@ def destroy_user
  current_user# This method will call the current user method to make sure there is a user. Then it destroys the user currently logged in.
   if current_user
     @current_user_id = @currentUser.id
-    # I needed to figure out a way to log the user out and delte at the same time. It appears this works best.
+    # I needed to figure out a way to log the user out and delte at the same time. It only works when the session is destroyed first.
     session["#{@currentUser.id}"] = nil
     @currentUser.destroy
-    # session["#{@currentUser.id}"] = nil
   end
 end
 
@@ -242,6 +241,8 @@ def follow_user
     #print a "need to be logged in to follow someone" or something
   end
 end
+
+# TODO a function that will check if a User is CurrentUser and if not redirect to a signin page with a message that says please sign in.
 
 #this will be a function to unfollow a user
 
