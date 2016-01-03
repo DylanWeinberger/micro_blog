@@ -206,6 +206,7 @@ def destroy_user
   # This method will call the current user method to make sure there is a user. Then it destroys the user currently logged in.
   if current_user
     @currentUser.destroy
+    session[:user_id] = nil
   end
 end
 
