@@ -98,14 +98,13 @@ get '/account_delete' do
 # This will reroute to a new page saying their account is deleted.
   current_user
   destroy_user
-  log_out
   erb :account_delete
 end
 
 get "/postsindex" do
   # This will navigate to the posts folder and find the index in there. This is the posts homepage.
   current_user
-  @posts = Post.order("created_at DESC")
+  @posts = Post.order(created_at: :desc)
   @title = "Welcome."
   erb :"postsindex"
 end
@@ -139,7 +138,7 @@ end
 get "/postsfeed" do
   # This will navigate to the posts folder and find the index in there. This is the posts homepage.
   current_user
-  @posts = Post.all.order("created_at DESC").take(10)
+  @posts = Post.order(created_at: :desc).take(10)
   @title = "Welcome."
   # @author_id = @posts.user_id
   # @author = User.find("#{@author_id}")
@@ -202,11 +201,21 @@ post '/follow' do
   erb :followUsers
 end
 
+post '/viewProfilePage' do
+  @viewProfileInfo = User.find(params[:followID])
+  @viewProfilePosts = User.find(params[:followID]).posts
+  erb :viewProfilePage
+end
+
+
 def destroy_user
-  # This method will call the current user method to make sure there is a user. Then it destroys the user currently logged in.
+ current_user# This method will call the current user method to make sure there is a user. Then it destroys the user currently logged in.
   if current_user
+    @current_user_id = @currentUser.id
+    # I needed to figure out a way to log the user out and delte at the same time. It appears this works best.
+    session["#{@currentUser.id}"] = nil
     @currentUser.destroy
-    session[:user_id] = nil
+    # session["#{@currentUser.id}"] = nil
   end
 end
 
