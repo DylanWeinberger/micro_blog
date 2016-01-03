@@ -9,8 +9,12 @@
 		<% @printAllUsers.each do |printAllUsers| %>
 		<p>
 			<form class="follow_users_form" action="/follow" method="POST">
-				<button name="followID" value="<%= printAllUsers.id %>" type="submit">Follow <%= printAllUsers.username %> id:<%= printAllUsers.id %> </button>
+				<button name="followID" value="<%= printAllUsers.id %>" type="submit">Follow <%= printAllUsers.username %></button>
 			</form>
+			<form class="follow_users_form" action="/viewProfilePage" method="POST">
+				<button name="followID" value="<%= printAllUsers.id %>" type="submit">Check out <%= printAllUsers.username %>'s profile!</button>
+			</form>
+
 		</p>
 		<% end %>
 	</body>

@@ -105,7 +105,7 @@ end
 get "/postsindex" do
   # This will navigate to the posts folder and find the index in there. This is the posts homepage.
   current_user
-  @posts = Post.order("created_at DESC")
+  @posts = Post.order(created_at: :desc)
   @title = "Welcome."
   erb :"postsindex"
 end
@@ -201,6 +201,13 @@ post '/follow' do
   current_user
   erb :followUsers
 end
+
+post '/viewProfilePage' do
+  @viewProfileInfo = User.find(params[:followID])
+  @viewProfilePosts = User.find(params[:followID]).posts
+  erb :viewProfilePage
+end
+
 
 def destroy_user
   # This method will call the current user method to make sure there is a user. Then it destroys the user currently logged in.
