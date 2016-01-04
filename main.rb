@@ -29,7 +29,8 @@ post '/sign_in' do
   	if @user.password == params[:password]
       session[:user_id] = @user.id
       current_user
-    #send them to the profile page, invoke current_user function to set session
+    #send them to the profile page, invoke current_user function to set session, all_users to get all users
+    all_users
     erb :profilePage
 
   	else
@@ -58,7 +59,6 @@ post '/signup' do
   erb :completeProfile
 end
 
-
 get '/completeProfile' do
   erb :completeProfile
 end
@@ -77,6 +77,7 @@ end
 
 get '/profilePage' do
   current_user
+  all_users
   erb :profilePage
 end
 
@@ -106,7 +107,7 @@ get "/postsindex" do
   current_user
   @posts = Post.order(created_at: :desc)
   @title = "Welcome."
-  erb :"postsindex"
+  erb :postsindex
 end
 
 get "/create" do
@@ -114,7 +115,7 @@ get "/create" do
  current_user
  @title = "Create post"
  @post = Post.new
- erb :"create"
+ erb :create
 end
 
   # This route is taking the paramaters entered in the create route and redirecting them to a new place to save them as their id.
@@ -141,17 +142,16 @@ get "/postsfeed" do
   @posts = Post.order(created_at: :desc).take(10)
   @title = "Welcome."
 
-  erb :"postsfeed"
+  erb :postsfeed
 end
 
 get "/userfeed" do
   current_user
   # this route will display all the current users posts.
   # I will find the posts.where user_id == @currentUser.id
-
   if current_user
     @posts = Post.all.find(:user_id == @currentUser.id)
-    erb :"postsindex"
+    erb :postsindex
   end
 end
 
@@ -160,32 +160,23 @@ get "/:id" do
   # This route will allow us to navigate through the different posts
  @post = Post.find(params[:id])
  @title = @post.title
- erb :"view"
+ erb :view
 end
 
 post '/updateProfile' do
   current_user
+  #Removes empty values from params hash, so profile does not get updated with blank values
   params.each do |type, value|
     if value == ""
       params.except!(type)
       puts params
     else
+    #updates the profile with the new information
     @currentUser.profile.update({type => value})
     end
   end
   redirect '/profilePage', :notice => 'Profile was updated successfully.'
 end
-
-# holding onto this in case my function doesn't work
-# if params[:name] != ""
-  #   @currentUser.profile.save(params [:name])
-  # elsif params[:age] != ""
-  #   @currentUser.profile.save(params [:age])
-  # elsif params[:lname] != ""
-  #   @currentUser.profile.save(params [:lname])
-  # elsif params[:city] != ""
-  #   @currentUser.profile.save(params [:city])
-  # end
 
 get '/followUsers' do
   current_user
@@ -196,7 +187,8 @@ end
 post '/follow' do
   follow_user
   current_user
-  erb :followUsers
+  #notifies the signed in user of which user they just started following
+  redirect '/followUsers', :notice => "You are now following #{@nowFollowing}!"
 end
 
 post '/viewProfilePage' do
@@ -205,9 +197,9 @@ post '/viewProfilePage' do
   erb :viewProfilePage
 end
 
-
+# This function will call the current user method to make sure there is a user. Then it destroys the user currently logged in.
 def destroy_user
- current_user# This method will call the current user method to make sure there is a user. Then it destroys the user currently logged in.
+ current_user
   if current_user
     @current_user_id = @currentUser.id
     # I needed to figure out a way to log the user out and delte at the same time. It only works when the session is destroyed first.
@@ -230,16 +222,17 @@ def current_user
 end
 
 def follow_user
-  #check if logged in, second part is attempting to check if user is already followed
-  if current_user # && User.find(params[:followID]).followers.find(@currentUser.id) == nil
+  #check if logged in, second part is to check if user is already followed
+  if current_user && unless User.find(params[:followID]).followers.exists?(:id => @currentUser.id)
     current_user
     #Take the id from params, find that user, and add current user to their followers
+    @nowFollowing = User.find(params[:followID]).username
     User.find(params[:followID]).followers.push(User.find(@currentUser.id))
-  #else
-    #print a "need to be logged in to follow someone" or something
+  else
+    redirect "/followUsers", :error => "You are already following #{params[:followID]}"
   end
 end
-
+end
 
 def no_user_redirect
   # maybe we can use something like this. If i am not logged in.
@@ -247,6 +240,27 @@ def no_user_redirect
     redirect "/", :error => 'You need to be logged in to access the site.'
   end
 end
+
+#all users
+def all_users
+  @allUsers = User.all
+end
+
+#finds a user
+def user_find(i)
+  @userFind = User.find(i)
+end
+
+#returns the number of users in the DB
+def user_count
+  @userCount = User.count
+end
+
+#checks if a user exists
+def user_exists(i)
+  @userExist = User.exists?(i)
+end
+
 # TODO a function that will check if a User is CurrentUser and if not redirect to a signin page with a message that says please sign in.
 
 #this will be a function to unfollow a user
@@ -256,9 +270,3 @@ end
 #     User.find(params[:followID]).followers.#code to remove(User.find(@currentUser.id))
 #   end
 # end
-
-      
-  
-
-
-
