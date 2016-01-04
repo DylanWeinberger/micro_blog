@@ -18,6 +18,18 @@
 				<p>City: <%= @currentUser.profile.city %></p>
 				<p>auto increment id from profile: <%= @currentUser.profile.id %></p>
 				<p>user_id in profile: <%= @currentUser.profile.user_id %></p>
+				<p>Users who follow you:</p>
+				<% @currentUser.followers.each do |print| %>
+				<p><%= print.username %></p>
+				<% end %>
+				<p>Users you follow</p>
+				<% (1..User.count).each do |i| %>
+					<% if User.exists?(i) %>
+						<% if User.find(i).followers.exists?(:id => @currentUser.id) %>
+							<p><%= User.find(i).username %></p>
+						<% end %>
+					<% end %>
+				<% end %>
 			</div>
 		<% else %>
 			<p><%="No profile has been created for this user" %></p>
