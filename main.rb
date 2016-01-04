@@ -13,8 +13,9 @@ get '/' do
   if current_user
     current_user 
     erb :home
-  end
+  else
     erb :sign_in
+  end
 end
 
 get '/sign_in' do
