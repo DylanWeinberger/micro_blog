@@ -1,10 +1,11 @@
-
-<p><%= @viewProfileInfo.username %></p>
-<p><%= @viewProfileInfo.email %></p>
-<p><%= @viewProfileInfo.birthday %></p>
-<p><%= @viewProfileInfo.profile.name + @viewProfileInfo.profile.lname %></p>
-<p><%= @viewProfileInfo.profile.city %></p>
-<p><%= @viewProfileInfo.profile.age %></p>
+<div class="view_profile_info">
+	<p>Username: <%= @viewProfileInfo.username %></p>
+	<p>Email: <%= @viewProfileInfo.email %></p>
+	<p>Birthday <%= @viewProfileInfo.birthday %></p>
+	<p>Name: <%= @viewProfileInfo.profile.name + @viewProfileInfo.profile.lname %></p>
+	<p>City: <%= @viewProfileInfo.profile.city %></p>
+	<p>Age: <%= @viewProfileInfo.profile.age %></p>
+</div>	
 
 
 <ul class="feedlist">
