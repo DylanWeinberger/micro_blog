@@ -13,8 +13,9 @@ get '/' do
   if current_user
     current_user 
     erb :home
-  end
+  else
     erb :sign_in
+  end
 end
 
 get '/sign_in' do
@@ -60,6 +61,8 @@ post '/signup' do
 end
 
 get '/completeProfile' do
+  current_user
+  all_users
   erb :completeProfile
 end
 
@@ -68,6 +71,7 @@ post '/completeProfile' do
     current_user
     #create a new profile, and use the current session id since they are already signed in as the foriegn key with that profile.
     Profile.create(name: params[:name], city: params[:city], age: params[:age], user_id: "#{@currentUser.id}", lname: params[:lname])
+    all_users
   erb :profilePage
   else
     #display error message if not all fields are filled.
@@ -98,6 +102,7 @@ end
 get '/account_delete' do
 # This will reroute to a new page saying their account is deleted.
   current_user
+  # @posts = Post.all.find(:user_id == @currentUser.id)
   destroy_user
   erb :account_delete
 end
@@ -202,9 +207,9 @@ def destroy_user
  current_user
   if current_user
     @current_user_id = @currentUser.id
-    # I needed to figure out a way to log the user out and delte at the same time. It only works when the session is destroyed first.
-    session["#{@currentUser.id}"] = nil
     @currentUser.destroy
+   # The following will log user out after destroying the user.
+    session[:user_id] = nil
   end
 end
 
