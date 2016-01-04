@@ -242,6 +242,13 @@ def follow_user
   end
 end
 
+
+def no_user_redirect
+  # maybe we can use something like this. If i am not logged in.
+  if !current_user
+    redirect "/", :error => 'You need to be logged in to access the site.'
+  end
+end
 # TODO a function that will check if a User is CurrentUser and if not redirect to a signin page with a message that says please sign in.
 
 #this will be a function to unfollow a user

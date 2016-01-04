@@ -420,3 +420,48 @@ form {
 
 }
 
+.view_profile_info {
+	margin-top: 20px;
+	background-color: rgba(98, 97, 105, .7);
+	width: 50%;
+	position: relative;
+	left: 25%;
+	border-style: dashed;
+	border-width: 10px;
+	border-radius: 28px;
+	border-color: #C76F00;
+}
+
+.view_profile_info p {
+	font-family: Michroma;
+	color: #7F4400;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+.sign_up_container {
+	margin-top: 20px;
+	background-color: rgba(98, 97, 105, .7);
+	width: 50%;
+	position: relative;
+	left: 25%;
+	border-style: dashed;
+	border-width: 10px;
+	border-radius: 28px;
+	border-color: #C76F00;
+}
+
+.sign_up_container label {
+	font-family: Michroma;
+	color: #7F4400;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+/*.sign_up_container input {
+	position: relative;
+	left: 40%;
+}*/
+
+
+
