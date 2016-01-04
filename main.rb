@@ -140,8 +140,6 @@ get "/postsfeed" do
   current_user
   @posts = Post.order(created_at: :desc).take(10)
   @title = "Welcome."
-  # @author_id = @posts.user_id
-  # @author = User.find("#{@author_id}")
 
   erb :"postsfeed"
 end

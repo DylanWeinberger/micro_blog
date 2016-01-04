@@ -8,8 +8,9 @@ body {
 }
 
 #toggleButton {
-    float: left;
+    /*float: left;*/
     position: fixed;
+    left:0px;
     width: 200px;
 	font-size: 30px;
 	font-family: Michroma;
@@ -483,6 +484,15 @@ form {
 	color: #9E9DA2;
 	background-color:  #7F4400;
 	cursor: pointer;
+}
+
+.real_delete_button {
+	display: none;
+}
+
+.real_delete_button_toggle {
+	display: inline;
+	position: relative;
 }
 
 
