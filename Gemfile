@@ -5,7 +5,11 @@ gem 'activerecord'
 gem 'sinatra-activerecord'
 # the adapter between Sinatra and
 # the ActiveRecord library
-gem 'sqlite3'
+
+group :development, :test do
+  gem 'sqlite3'
+end
+
 # the database adapter to use the
 # sqlite3 db system with ActiveRecord
 gem 'rake'
