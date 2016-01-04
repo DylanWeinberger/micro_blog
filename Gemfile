@@ -10,6 +10,10 @@ group :development, :test do
   gem 'sqlite3'
 end
 
+group :production
+	gem 'pg', '~> 0.18.4'
+end
+
 # the database adapter to use the
 # sqlite3 db system with ActiveRecord
 gem 'rake'
