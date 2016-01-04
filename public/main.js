@@ -7,20 +7,14 @@ function ConfirmDelete()
     return false;
 }
 
-$( document ).ready(function() {
-    // console.log( "ready!" );
+$(document).ready(function(){
     var $leftMenu = $('#nav_container');
 	var leftVal = parseInt($leftMenu.css('left'));
 
-	$('#toggleButton').click(function () {
+	$('#toggleButton').click(function(){
     animateLeft = (parseInt($leftMenu.css('left')) == 0) ? leftVal : 0;
-	$leftMenu.animate({
-		left: animateLeft + 'px'
-    });
-});
-
-
-
-
-
+  	$leftMenu.animate({
+  		left: animateLeft + 'px'
+      });
+  });
 });

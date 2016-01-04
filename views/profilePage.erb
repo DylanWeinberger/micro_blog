@@ -23,11 +23,11 @@
 				<p><%= print.username %></p>
 				<% end %>
 				<p>Users you follow</p>
-				<% (1..User.count).each do |i| %>
-					<% if User.exists?(i) %>
-						<% if User.find(i).followers.exists?(:id => @currentUser.id) %>
-							<p><%= User.find(i).username %></p>
-						<% end %>
+				<!-- iterate through each user -->
+				<% @allUsers.each do |i| %>
+					<!-- if the user exists in the other user's followers, print their username to the page -->
+					<% if i.followers.exists?(:id => @currentUser.id) %>
+						<p><%= i.username %></p>
 					<% end %>
 				<% end %>
 			</div>

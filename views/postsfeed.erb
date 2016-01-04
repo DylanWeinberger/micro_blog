@@ -9,10 +9,15 @@
 	<div class="feedpostcontainer">
 	   <h4><a class="feedtitle" href="/<%= post.id %>"><%= post.title %></a></h4>
 	   <p class="feedtimestamp">Created: <%= post.created_at %></p>
-	   <% postAuthor = post.user_id %>
-	   <p class="feedauthor">Created by: <%= User.find(id: post.user_id).profile.name %></p>
+	   <p class="feedauthor">Created by: <%= post.user.profile.name if post.user %></p>
 	   <p class="feedcontent"><%= post.content %></p>
 	   <% end %>
 	</div>
  </li>
 </ul>
+
+
+
+<!-- Couldn't find User with 'id'={:id=>18} -->
+	   <% #@postID = post.user_id %>
+	   <% #@postAuthor = Integer(@postID[0][":id"]) %>
