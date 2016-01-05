@@ -83,12 +83,14 @@ end
 get '/profilePage' do
   current_user
   all_users
-  @viewProfilePosts = User.find(params[:followID]).posts
+  no_user_redirect
+  @viewProfilePosts = User.find(@currentUser.id).posts
   erb :profilePage
 end
 
 # a page where users can follow other users
 get '/followUsers' do
+  no_user_redirect
   current_user
   @printAllUsers = User.all
   erb :followUsers
@@ -119,16 +121,17 @@ end
 
 get "/create" do
   # This is the route for creating new posts.
- current_user
- @title = "Create post"
- @post = Post.new
- erb :create
+  no_user_redirect
+  current_user
+  @title = "Create post"
+  @post = Post.new
+  erb :create
 end
 
   # This route is taking the paramaters entered in the create route and redirecting them to a new place to save them as their id.
 post "/create" do
- if current_user
- @post = Post.new(title: params[:title], content: params[:content], user_id: "#{@currentUser.id}")
+  if current_user
+  @post = Post.new(title: params[:title], content: params[:content], user_id: "#{@currentUser.id}")
   if @post.content.length < 151 && @post.title != ""
     @post.save
     redirect "/#{@post.id}", :notice => 'Congrats! Love the new post.'
@@ -140,7 +143,7 @@ post "/create" do
   end
   else
     redirect "/create", :error => 'You need to be logged in to make a post'
- end
+  end
 end
 
 get "/postsfeed" do
@@ -148,26 +151,15 @@ get "/postsfeed" do
   current_user
   @posts = Post.order(created_at: :desc).take(10)
   @title = "Welcome."
-
   erb :postsfeed
 end
 
-get "/userfeed" do
-  current_user
-  # this route will display all the current users posts.
-  # I will find the posts.where user_id == @currentUser.id
-  if current_user
-    @posts = Post.all.find(:user_id == @currentUser.id)
-    erb :postsindex
-  end
-end
-
+# This route will allow us to navigate through the different posts
 get "/:id" do
   current_user
-  # This route will allow us to navigate through the different posts
- @post = Post.find(params[:id])
- @title = @post.title
- erb :view
+  @post = Post.find(params[:id])
+  @title = @post.title
+  erb :view
 end
 
 post '/updateProfile' do
@@ -192,6 +184,7 @@ end
 
 #this is the routing for when a user clicks the button to follow another user
 post '/follow' do
+  no_user_redirect
   follow_user
   current_user
   #notifies the signed in user of which user they just started following
@@ -237,7 +230,7 @@ end
 
 def no_user_redirect
   # maybe we can use something like this. If i am not logged in.
-  if !current_user
+  if not current_user
     redirect "/", :error => 'You need to be logged in to access the site.'
   end
 end
