@@ -5,7 +5,6 @@ require 'sinatra/flash'
 require 'sinatra/redirect_with_flash'
 require 'active_support/all'
 
-set :database, "sqlite3:micro_blog.sqlite3"
 configure(:development){set :database, "sqlite3:micro_blog.sqlite3"}
 
 enable :sessions
