@@ -4,6 +4,8 @@ require './models'
 require 'sinatra/flash'
 require 'sinatra/redirect_with_flash'
 require 'active_support/all'
+require 'active_record'
+ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'] || 'postgres://localhost/mydb')
 
 configure(:development){set :database, "sqlite3:micro_blog.sqlite3"}
 
