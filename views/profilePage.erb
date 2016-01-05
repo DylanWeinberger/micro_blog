@@ -4,7 +4,7 @@
 		<title>Profile</title>
 	</head>
 	<body>
-		<!-- check if the user is logged in, if not, display the message below else -->
+		<!-- check if the user is logged in, if not, display the message below else. All profile information is printed. -->
 		<% if session[:user_id] != nil %>
 			<div class="profile_container">
 				<p>Hello <%= @currentUser.profile.name %>, how's your day going?</p>
@@ -30,6 +30,19 @@
 						<p><%= i.username %></p>
 					<% end %>
 				<% end %>
+				<p>Your posts:</p>
+					<ul class="feedlist">
+					<% @viewProfilePosts.each do |post| %>
+ 						<li>
+ 							<div class="feedpostcontainer">
+							   <h4><a class="feedtitle" href="/<%= post.id %>"><%= post.title %></a></h4>
+							   <p class="feedtimestamp">Created: <%= post.created_at %></p>
+							   <p class="feedauthor">Created by: <%= post.user_id %></p>
+							   <p class="feedcontent"><%= post.content %></p>
+							</div>
+					 	</li>
+					<% end %>
+				</ul>
 			</div>
 		<% else %>
 			<p><%="No profile has been created for this user" %></p>

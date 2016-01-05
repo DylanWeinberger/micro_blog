@@ -83,6 +83,7 @@ end
 get '/profilePage' do
   current_user
   all_users
+  @viewProfilePosts = User.find(params[:followID]).posts
   erb :profilePage
 end
 
@@ -195,12 +196,6 @@ post '/follow' do
   current_user
   #notifies the signed in user of which user they just started following
   redirect '/followUsers', :notice => "You are now following #{@nowFollowing}!"
-end
-
-post '/viewProfilePage' do
-  @viewProfileInfo = User.find(params[:followID])
-  @viewProfilePosts = User.find(params[:followID]).posts
-  erb :viewProfilePage
 end
 
 # This function will call the current user method to make sure there is a user. Then it destroys the user currently logged in.
