@@ -84,7 +84,7 @@ get '/profilePage' do
   current_user
   all_users
   no_user_redirect
-  @viewProfilePosts = User.find(@currentUser.id).posts
+  @viewProfilePosts = @currentUser.posts
   erb :profilePage
 end
 
@@ -174,7 +174,7 @@ post '/updateProfile' do
     @currentUser.profile.update({type => value})
     end
   end
-  redirect '/profilePage', :notice => 'Profile was updated successfully.'
+  erb '/profilePage', :notice => 'Profile was updated successfully.'
 end
 
 get '/followUsers' do
@@ -189,6 +189,12 @@ post '/follow' do
   current_user
   #notifies the signed in user of which user they just started following
   redirect '/followUsers', :notice => "You are now following #{@nowFollowing}!"
+end
+
+post '/viewProfilePage' do
+  @viewProfileInfo = User.find(params[:followID])
+  @viewProfilePosts = User.find(params[:followID]).posts
+  erb :viewProfilePage
 end
 
 # This function will call the current user method to make sure there is a user. Then it destroys the user currently logged in.
