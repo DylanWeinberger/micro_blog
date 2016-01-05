@@ -6,7 +6,7 @@ gem 'sinatra-activerecord'
 # the adapter between Sinatra and
 # the ActiveRecord library
 
-group :development, :test do
+group :development do
   gem 'sqlite3'
 end
 
