@@ -30,6 +30,7 @@
 						<p><%= i.username %></p>
 					<% end %>
 				<% end %>
+				<!-- Prints all the user's posts -->
 				<p>Your posts:</p>
 					<ul class="feedlist">
 					<% @viewProfilePosts.each do |post| %>
@@ -37,7 +38,7 @@
  							<div class="feedpostcontainer">
 							   <h4><a class="feedtitle" href="/<%= post.id %>"><%= post.title %></a></h4>
 							   <p class="feedtimestamp">Created: <%= post.created_at %></p>
-							   <p class="feedauthor">Created by: <%= post.user_id %></p>
+							   <p class="feedauthor">Created by: <%= post.user.profile.name if post.user %></p>
 							   <p class="feedcontent"><%= post.content %></p>
 							</div>
 					 	</li>
@@ -64,7 +65,7 @@
 			</form>
 		</div>
 		
-		<h2><!-- <a href="#"> --><button input type="button" onClick="ConfirmDelete()" id="fake_delete">Delete Your Account?</button><!-- </a> --></h2>
+		<h2><button input type="button" onClick="ConfirmDelete()" id="fake_delete">Delete Your Account?</button></h2>
 		<h2><a href="/account_delete"><button class="real_delete_button" input type="button">Delete Your Account!></button></a></h2>
 	</body>
 </html>
